@@ -1,16 +1,16 @@
 import torch
 from PIL import Image
 from torchvision import transforms
-from model import SwinHyperprior
+from model import Cheng2020GMM
 
 torch.backends.cudnn.deterministic = True
 
 if __name__ == '__main__':
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    # device = 'cpu'
+    # device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = 'cpu'
     checkpoint = torch.load('checkpoint.pth.tar', map_location=device)
 
-    net = Hyperprior().to(device).eval()
+    net = Cheng2020GMM().to(device).eval()
     net.load_state_dict(checkpoint["state_dict"])
 
     img = Image.open('./images/kodim01.png').convert('RGB')
@@ -18,8 +18,8 @@ if __name__ == '__main__':
 
     with torch.no_grad():
         # codec
-        out = net.compress(x)
-        rec = net.decompress(out['strings'], out['shape'])
+        out = net.compress(x, 'foo')
+        rec = net.decompress('foo')
         rec = transforms.ToPILImage()(rec['x_hat'].squeeze().cpu())
         rec.save('./images/codec.png', format="PNG")
 
