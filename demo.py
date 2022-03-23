@@ -7,7 +7,7 @@ torch.backends.cudnn.deterministic = True
 
 if __name__ == '__main__':
     # device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    device = 'cpu'
+    device = 'cpu'  # use cpu here will be faster
     checkpoint = torch.load('checkpoint.pth.tar', map_location=device)
 
     net = Cheng2020GMM().to(device).eval()

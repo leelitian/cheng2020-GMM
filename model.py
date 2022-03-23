@@ -133,6 +133,7 @@ class Cheng2020GMM(CompressionModel):
             "likelihoods": {"y": y_likelihoods, "z": z_likelihoods},
         }
 
+    # range-coder is used to coding y_hat
     def compress(self, x, stream_name):
         """
         https://github.com/ZhengxueCheng/Learned-Image-Compression-with-GMM-and-Attention/blob/master/network.py
